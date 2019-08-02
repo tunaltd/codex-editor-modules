@@ -8,3 +8,4 @@ Common:
 
 Cytoscape module:
 * [cytoscape.js](https://github.com/cytoscape/cytoscape.js) under [MIT License](https://github.com/cytoscape/cytoscape.js/blob/unstable/LICENSE)
+* [demo](http://taurenshaman.github.io/editor@codexteam+jsoneditor.html)
