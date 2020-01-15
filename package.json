@@ -1,7 +1,7 @@
 {
-  "name": "tui.editor-modules",
+  "name": "codex-editor.js-modules",
   "version": "1.0.0",
-  "description": "modules for tui.editor\r ============================",
+  "description": "modules for codex-editor.js\r ============================",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
