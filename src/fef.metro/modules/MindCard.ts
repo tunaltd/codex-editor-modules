@@ -257,8 +257,6 @@ class LoreCard_Mind extends ModuleBase {
         //const input = blockContent.querySelector('input');
         // const inputDataUri = blockContent.querySelector('.data_uri');
         // var dataUri = inputDataUri.value;
-        console.log("save(): " + this.dataUri)
-
         this.prepare();
 
         return Object.assign(this.data, {

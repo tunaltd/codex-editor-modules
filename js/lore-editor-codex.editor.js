@@ -127,37 +127,6 @@ class ModuleBase {
         }
         return dataUri;
     }
-    createLinkButton_Note(noteLink) {
-        const btnNote = document.createElement("a");
-        btnNote.classList.add("button", "light", "ml-3");
-        btnNote.style.lineHeight = "100%";
-        btnNote.style.textDecoration = "none";
-        btnNote.innerText = "Lore";
-        btnNote.href = noteLink;
-        btnNote.target = "_blank";
-        return btnNote;
-    }
-    createLinkButton_Author(authorLink) {
-        const btnAuthor = document.createElement("a");
-        btnAuthor.classList.add("button", "light", "ml-3");
-        btnAuthor.style.lineHeight = "100%";
-        btnAuthor.style.textDecoration = "none";
-        btnAuthor.innerHTML = '<span class="mif-user"></span> ' + LoreService.getUserName_FromAuthorLink(authorLink);
-        btnAuthor.href = authorLink;
-        btnAuthor.target = "_blank";
-        return btnAuthor;
-    }
-    createDiv_Settings(linkBtnNote, linkBtnAuthor) {
-        const divSettings = document.createElement("div");
-        divSettings.classList.add("mt-3", "d-flex", "flex-justify-center", "flex-align-center");
-        if (linkBtnAuthor) {
-            divSettings.appendChild(linkBtnAuthor);
-        }
-        if (linkBtnNote) {
-            divSettings.appendChild(linkBtnNote);
-        }
-        return divSettings;
-    }
 }
 class LoreCard_Mind extends ModuleBase {
     constructor({ data, config, api }) {
@@ -306,7 +275,6 @@ class LoreCard_Mind extends ModuleBase {
         });
     }
     save(blockContent) {
-        console.log("save(): " + this.dataUri);
         this.prepare();
         return Object.assign(this.data, {
             data: this.dataUri
@@ -563,4 +531,181 @@ SVGConstants.SVG_Note_Tree = `<?xml version="1.0" encoding="utf-8"?>
     <path id="path1" transform="rotate(0,16,16) translate(9.29874992370605,8) scale(0.5,0.5)  " fill="orange" d="M13.371006,0C14.806003,0 15.968998,1.3850021 15.968998,3.0940018 15.968998,3.9589996 15.670002,4.7390022 15.190006,5.3000031L19.498007,13.132999C19.797994,12.989002 20.125006,12.905003 20.468008,12.905003 21.903005,12.905003 23.066,14.291 23.066,16 23.066,17.138 22.543997,18.122002 21.774999,18.660004L23.858007,25.854004C23.974005,25.834 24.088003,25.811005 24.207006,25.811005 25.642004,25.811005 26.805,27.196999 26.805,28.904999 26.805,30.614998 25.642004,32 24.207006,32 22.771993,32 21.608999,30.614998 21.608999,28.904999 21.608999,27.767998 22.131002,26.784004 22.899008,26.245003L20.816,19.053001C20.702001,19.070999 20.586996,19.095001 20.468008,19.095001 20.362997,19.095001 20.263006,19.072998 20.162008,19.056999L18.149998,26.370003C18.821997,26.931 19.263998,27.855003 19.263998,28.904999 19.263998,30.614998 18.101002,32 16.666004,32 15.230991,32 14.067005,30.614998 14.067005,28.904999 14.067005,27.196999 15.230991,25.811005 16.666004,25.811005 16.854999,25.811005 17.039005,25.838005 17.215992,25.884003L19.196997,18.683998C18.409,18.151001 17.869999,17.154999 17.869999,16 17.869999,15.135002 18.168995,14.355 18.649008,13.794003L14.340992,5.9600029C14.039997,6.1049995 13.715,6.1879997 13.371006,6.1879997 13.037006,6.1879997 12.720005,6.1070023 12.427996,5.9700012L8.1660021,13.905003C8.6570004,14.468002 8.9669979,15.255005 8.9669979,16.133003 8.9669979,17.258003 8.4570025,18.235001 7.6999992,18.776001L9.8259915,25.857002C9.9499996,25.834999 10.073001,25.811005 10.20299,25.811005 11.638003,25.811005 12.799991,27.196999 12.799991,28.904999 12.799991,30.614998 11.638003,32 10.20299,32 8.7679928,32 7.6039904,30.614998 7.6039904,28.904999 7.6039904,27.779999 8.114992,26.802002 8.8710049,26.262001L6.7460039,19.181999C6.6219958,19.203003 6.4980028,19.227005 6.367998,19.227005 6.2439898,19.227005 6.1250017,19.203003 6.0059984,19.182999L3.9180003,26.253998C4.6799939,26.792999 5.1960004,27.773003 5.1960004,28.904999 5.1960004,30.614998 4.0329908,32 2.597993,32 1.1629948,32 1.6183913E-07,30.614998 0,28.904999 1.6183913E-07,27.196999 1.1629948,25.811005 2.597993,25.811005 2.7220009,25.811005 2.840989,25.834 2.9609996,25.855003L5.0479902,18.783005C4.2870038,18.244003 3.76999,17.264999 3.76999,16.133003 3.76999,14.423004 4.9339917,13.037003 6.367998,13.037003 6.7019976,13.037003 7.0189989,13.118999 7.3119982,13.255001L11.573001,5.321003C11.082003,4.7579994 10.772998,3.9700012 10.772998,3.0940018 10.772998,1.3850021 11.935992,0 13.371006,0z" />
   </g>
 </svg>`;
+class LoreCard_Section extends ModuleBase {
+    constructor({ data, config, api }) {
+        super("lorecard.section");
+        this.data = {
+            data: data.data,
+            stretched: data.stretched !== undefined ? data.stretched : false
+        };
+        this.config = config || {};
+        this.api = api;
+        this.wrapper = undefined;
+        this.settings = [
+            {
+                name: 'navNote',
+                title: 'Open Note',
+                icon: SVGConstants.SVG_Arrow_Open_Blank
+            },
+            {
+                name: 'navAuthor',
+                title: 'Author',
+                icon: SVGConstants.SVG_User_Info
+            }
+        ];
+    }
+    static get toolbox() {
+        return {
+            title: 'lore:> section',
+            icon: SVGConstants.SVG_Note_Section
+        };
+    }
+    createCardHeader(wrapperId, title) {
+        const div = document.createElement("div");
+        div.classList.add("card-header");
+        div.innerText = title;
+        return div;
+    }
+    createCardFooter(wrapperId) {
+        const btn = document.createElement("button");
+        btn.classList.add("flat-button", "mif-arrow-right", "mif-2x", "fg-black");
+        btn.onclick = (ev) => {
+            $("#" + wrapperId).toggleClass("active");
+        };
+        const div = document.createElement("div");
+        div.classList.add("card-footer");
+        div.appendChild(btn);
+        return div;
+    }
+    createCardContent(wrapperId, side) {
+        var divEditor = document.createElement("div");
+        divEditor.id = "viewer_" + side + "_" + wrapperId;
+        divEditor.style.height = "360px";
+        divEditor.style.overflowY = "auto";
+        const div = document.createElement("div");
+        div.classList.add("card-content");
+        div.appendChild(divEditor);
+        return div;
+    }
+    createMetroCard(wrapperId, side, title) {
+        const divHeader = this.createCardHeader(wrapperId, title);
+        const divContent = this.createCardContent(wrapperId, side);
+        const divFooter = this.createCardFooter(wrapperId);
+        const divCard = document.createElement("div");
+        divCard.classList.add("card");
+        divCard.appendChild(divHeader);
+        divCard.appendChild(divContent);
+        divCard.appendChild(divFooter);
+        return divCard;
+    }
+    createCardSide(wrapperId, side, title) {
+        const divCard = this.createMetroCard(wrapperId, side, title);
+        const divSide = document.createElement("div");
+        divSide.classList.add(side);
+        divSide.appendChild(divCard);
+        return divSide;
+    }
+    initCard(ctx, data) {
+        var divSection = document.createElement('div');
+        divSection.setAttribute("id", ctx.wrapperId);
+        divSection.classList.add("flip-card", "effect-on-active");
+        divSection.style.width = "360px";
+        divSection.style.height = "520px";
+        var divFront = this.createCardSide(this.wrapperId, "front", data.title);
+        var divBack = this.createCardSide(this.wrapperId, "back", data.title);
+        divSection.appendChild(divFront);
+        divSection.appendChild(divBack);
+        this.wrapper.innerHTML = "";
+        this.wrapper.appendChild(divSection);
+        setTimeout(() => {
+            var vf = document.getElementById('viewer_front_' + this.wrapperId);
+            vf.innerText = data.front.content;
+            var vb = document.getElementById('viewer_back_' + this.wrapperId);
+            vb.innerText = data.back.content;
+        }, 100);
+    }
+    renderSettings() {
+        const wrapper = document.createElement('div');
+        this.settings.forEach(tune => {
+            let button = document.createElement('div');
+            button.classList.add(this.api.styles.settingsButton);
+            button.classList.toggle(this.api.styles.settingsButtonActive, this.data[tune.name]);
+            button.innerHTML = tune.icon;
+            button.setAttribute("title", tune.title);
+            wrapper.appendChild(button);
+            button.addEventListener('click', () => {
+                if (tune.name === "navNote") {
+                    CommonUtitlity.OpenLink(this.noteLink);
+                }
+                else if (tune.name === "navAuthor") {
+                    CommonUtitlity.OpenLink(this.authorLink);
+                }
+                else {
+                    this._toggleTune(tune.name);
+                    button.classList.toggle(this.api.styles.settingsButtonActive);
+                }
+            });
+        });
+        return wrapper;
+    }
+    render() {
+        this.wrapper = document.createElement('div');
+        if (this.data && this.data.data) {
+            return this.wrapper;
+        }
+        const inputDataUrl = document.createElement('input');
+        inputDataUrl.classList.add('w-100');
+        this.wrapper.appendChild(inputDataUrl);
+        inputDataUrl.placeholder = 'Paste an data URL...';
+        inputDataUrl.value = this.data && this.data.data ? this.data.data : "";
+        inputDataUrl.addEventListener('paste', (event) => {
+            this.dataUri = event.clipboardData.getData('text');
+            this.prepare();
+        });
+        inputDataUrl.addEventListener('keyup', (event) => {
+            if (event.keyCode === 13) {
+                this.dataUri = inputDataUrl.value;
+                this.prepare();
+            }
+        });
+        return this.wrapper;
+    }
+    prepare() {
+        if (!this.dataUri) {
+            return;
+        }
+        this.noteLink = LoreService.getUri_NoteLink(this.dataUri);
+        this.authorLink = LoreService.getUri_Author_FromNoteLink(this.dataUri);
+        var uriHash = CommonUtitlity.ComputeHash(this.dataUri);
+        this.wrapperId = "divLoreSection_" + uriHash;
+        var ctxGetData = this;
+        this.loreService.getNoteByURL(this.dataUri, (data) => {
+            var cy = ctxGetData.initCard(ctxGetData, data);
+        });
+    }
+    _toggleTune(tune) {
+        this.data[tune] = !this.data[tune];
+        this._acceptTuneView();
+    }
+    _acceptTuneView() {
+        this.settings.forEach(tune => {
+            this.wrapper.classList.toggle(tune.name, !!this.data[tune.name]);
+            if (tune.name === 'stretched') {
+                this.api.blocks.stretchBlock(this.api.blocks.getCurrentBlockIndex(), !!this.data.stretched);
+            }
+        });
+    }
+    save(blockContent) {
+        this.prepare();
+        return Object.assign(this.data, {
+            data: this.dataUri
+        });
+    }
+    validate(savedData) {
+        if (!savedData.data || !savedData.data.trim()) {
+            return false;
+        }
+        return true;
+    }
+}
 //# sourceMappingURL=lore-editor-codex.editor.js.map
