@@ -106,6 +106,8 @@ class LoreCard_List extends ModuleBase {
     render() {
         this.wrapper = document.createElement('div');
         if (this.data && this.data.data) {
+            this.dataUri = this.data.data;
+            this.prepare();
             return this.wrapper;
         }
 

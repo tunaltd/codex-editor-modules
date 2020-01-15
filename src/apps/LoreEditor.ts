@@ -5,7 +5,7 @@ class LoreEditor{
 
     constructor(editor) {
         this.editor = editor;
-        this.init();
+        //this.init();
     }
 
     init(){
