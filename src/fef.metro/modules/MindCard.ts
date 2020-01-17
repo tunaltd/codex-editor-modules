@@ -184,37 +184,37 @@ class LoreCard_Mind extends ModuleBase {
         return wrapper;
     }
 
-    render() {
-        this.wrapper = document.createElement('div');
-        if (this.data && this.data.data) {
-            this.dataUri = this.data.data;
-            this.prepare();
-            return this.wrapper;
-        }
+    //render() {
+    //    this.wrapper = document.createElement('div');
+    //    if (this.data && this.data.data) {
+    //        this.dataUri = this.data.data;
+    //        this.prepare();
+    //        return this.wrapper;
+    //    }
 
-        const inputDataUrl = document.createElement('input');
-        inputDataUrl.classList.add('w-100');
+    //    const inputDataUrl = document.createElement('input');
+    //    inputDataUrl.classList.add('w-100');
 
-        this.wrapper.appendChild(inputDataUrl);
+    //    this.wrapper.appendChild(inputDataUrl);
 
-        inputDataUrl.placeholder = 'Paste an data URL...';
-        inputDataUrl.value = this.data && this.data.data ? this.data.data : "";
+    //    inputDataUrl.placeholder = 'Paste an data URL...';
+    //    inputDataUrl.value = this.data && this.data.data ? this.data.data : "";
 
-        inputDataUrl.addEventListener('paste', (event) => {
-            //this._createImage(event.clipboardData.getData('text'));
-            this.dataUri = event.clipboardData.getData('text');
-            this.prepare();
-        });
+    //    inputDataUrl.addEventListener('paste', (event) => {
+    //        //this._createImage(event.clipboardData.getData('text'));
+    //        this.dataUri = event.clipboardData.getData('text');
+    //        this.prepare();
+    //    });
 
-        inputDataUrl.addEventListener('keyup', (event) => {
-            if (event.keyCode === 13) {
-                this.dataUri = inputDataUrl.value;
-                this.prepare();
-            }
-        });
+    //    inputDataUrl.addEventListener('keyup', (event) => {
+    //        if (event.keyCode === 13) {
+    //            this.dataUri = inputDataUrl.value;
+    //            this.prepare();
+    //        }
+    //    });
 
-        return this.wrapper;
-    }
+    //    return this.wrapper;
+    //}
 
     prepare() {
         if (!this.dataUri) {
@@ -239,11 +239,6 @@ class LoreCard_Mind extends ModuleBase {
         });
     }
 
-    _toggleTune(tune) {
-        this.data[tune] = !this.data[tune];
-        this._acceptTuneView();
-    }
-
     _acceptTuneView() {
         this.settings.forEach(tune => {
             this.wrapper.classList.toggle(tune.name, !!this.data[tune.name]);
@@ -252,24 +247,6 @@ class LoreCard_Mind extends ModuleBase {
                 this.tryRefreshCyAfterResize(this.wrapperId);
             }
         });
-    }
-
-    save(blockContent) {
-        //const input = blockContent.querySelector('input');
-        // const inputDataUri = blockContent.querySelector('.data_uri');
-        // var dataUri = inputDataUri.value;
-        this.prepare();
-
-        return Object.assign(this.data, {
-            data: this.dataUri
-        });
-    }
-
-    validate(savedData) {
-        if (!savedData.data || !savedData.data.trim() ) {
-            return false;
-        }
-        return true;
     }
 
 }
