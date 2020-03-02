@@ -1,4 +1,7 @@
 # codex-editor-modules
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/tunaltd/codex-editor-modules.svg)](https://greenkeeper.io/)
+
 Some modules for editor.js (codex team)
 
 Source folder structure:  
